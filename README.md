@@ -1,15 +1,26 @@
-# URL Shortener
+<p align="center">
+  <h1 align="center">URL Shortener</h1>
+  <p align="center">A fast and simple URL shortener with a dark-themed web UI, custom aliases, and click tracking.</p>
+</p>
 
-A fast and simple URL shortener built with **FastAPI**, featuring a clean dark-themed web UI, custom aliases, and click tracking.
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=flat&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/FastAPI-0.115-009688?style=flat&logo=fastapi&logoColor=white" alt="FastAPI">
+  <img src="https://img.shields.io/badge/SQLAlchemy-2.0-D71F00?style=flat&logo=sqlalchemy&logoColor=white" alt="SQLAlchemy">
+  <img src="https://img.shields.io/badge/Jinja2-Templates-B41717?style=flat&logo=jinja&logoColor=white" alt="Jinja2">
+  <img src="https://img.shields.io/badge/License-MIT-green?style=flat" alt="License">
+</p>
+
+---
 
 ## Features
 
-- Shorten any URL with a single click
-- Custom aliases (e.g., `/my-link`)
-- Click tracking with statistics
-- Clean, responsive dark-themed UI
-- RESTful API endpoints
-- Async SQLite database
+- **Shorten URLs** — generate short links with a single click
+- **Custom Aliases** — create memorable links like `/my-link`
+- **Click Tracking** — view click count and last clicked timestamp
+- **Dark-themed UI** — clean, responsive web interface
+- **RESTful API** — full API for programmatic access
+- **Async Database** — non-blocking SQLite via aiosqlite
 
 ## Quick Start
 
@@ -20,7 +31,7 @@ cd url-shortener
 
 # Create virtual environment
 python -m venv venv
-source venv/bin/activate  # Linux/Mac
+source venv/bin/activate  # Linux/macOS
 venv\Scripts\activate     # Windows
 
 # Install dependencies
@@ -32,17 +43,19 @@ uvicorn app.main:app --reload
 
 Open [http://localhost:8000](http://localhost:8000) in your browser.
 
-## API
+## API Documentation
 
 ### Shorten a URL
 
-```
+```http
 POST /api/shorten
 Content-Type: application/json
+```
 
+```json
 {
   "url": "https://example.com/very/long/url",
-  "custom_alias": "my-link"    // optional
+  "custom_alias": "my-link"
 }
 ```
 
@@ -58,11 +71,9 @@ Content-Type: application/json
 
 ### Get Link Stats
 
-```
+```http
 GET /api/stats/{code}
 ```
-
-**Response:**
 
 ```json
 {
@@ -77,26 +88,66 @@ GET /api/stats/{code}
 
 ### Redirect
 
-```
-GET /{code}  →  307 redirect to original URL
+```http
+GET /{code}  ->  307 redirect to original URL
 ```
 
 ## Configuration
-
-Set environment variables to customize:
 
 | Variable | Default | Description |
 |---|---|---|
 | `BASE_URL` | `http://localhost:8000` | Base URL for generated short links |
 | `DATABASE_URL` | `sqlite+aiosqlite:///./shortener.db` | Database connection string |
 
+## Project Structure
+
+```
+url-shortener/
+├── app/
+│   ├── __init__.py
+│   ├── main.py              # FastAPI application entry point
+│   ├── config.py            # Settings and configuration
+│   ├── database.py          # Async engine and session
+│   ├── models.py            # SQLAlchemy URL model
+│   ├── schemas.py           # Pydantic schemas
+│   ├── utils.py             # Short code generation
+│   ├── routers/
+│   │   ├── __init__.py
+│   │   ├── api.py           # REST API endpoints
+│   │   └── pages.py         # Web UI routes
+│   ├── templates/
+│   │   ├── base.html        # Base layout
+│   │   ├── index.html       # Main page (shorten form)
+│   │   └── stats.html       # Link statistics page
+│   └── static/
+│       ├── css/style.css    # Dark theme styles
+│       └── js/main.js       # Frontend logic
+├── requirements.txt
+├── .gitignore
+└── README.md
+```
+
 ## Tech Stack
 
-- **FastAPI** - async web framework
-- **SQLAlchemy** - async ORM with aiosqlite
-- **Jinja2** - server-side templates
-- **Vanilla JS** - no frontend framework needed
+| Component | Technology |
+|---|---|
+| Framework | FastAPI 0.115 |
+| ORM | SQLAlchemy 2.0 (async) |
+| Database | SQLite via aiosqlite |
+| Templates | Jinja2 |
+| Frontend | Vanilla HTML/CSS/JS |
+| Server | Uvicorn |
 
 ## License
 
 MIT
+
+---
+
+<p align="center">
+  <sub>developed by <a href="https://github.com/qorexdev">qorex</a></sub>
+  <br>
+  <sub>
+    <a href="https://github.com/qorexdev">GitHub</a> · <a href="https://t.me/qorexdev">Telegram</a>
+  </sub>
+</p>
